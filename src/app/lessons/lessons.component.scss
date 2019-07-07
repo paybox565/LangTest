@@ -127,7 +127,7 @@
     display: flex;
     width: 140px;
     height: 140px;
-    background: #FFFFFF;
+    background-color: #FFFFFF;
     border: 1px solid #CCCCCC;
     box-shadow: 0px 2px 0px #CCCCCC;
     border-radius: 10px;
@@ -138,6 +138,12 @@
       font-size: 0;
       line-height: 0;
       min-height: 0;
+    }
+
+    &.active {
+      background-color: #DDF3FE;
+      border-color: #5AB3E4;
+      box-shadow: 0px 2px 0px #5AB3E4;
     }
   }
   &__question-buttons {

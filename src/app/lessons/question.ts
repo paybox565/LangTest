@@ -3,11 +3,12 @@ export class Question {
     title: string;
     type: string;
     correctAnswerId: number;
-    answers: Array<QuestionImage>;
+    answers: Array<Answer>;
 }
 
-export class QuestionImage {
+export class Answer {
     answerId: number;
+    active?: boolean;
     image?: string;
     name?: string;
 }

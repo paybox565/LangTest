@@ -36,22 +36,43 @@
       <div class="line" [style.width]="progress + '%'"></div>
     </div>
   </section>
-  <section class="lesson__question" *ngIf="currentQuestion" [ngClass]="currentQuestion.type">
+  <section class="lesson__question"
+           *ngIf="currentQuestion"
+           [ngClass]="currentQuestion.type">
     <div class="lesson__question-title">{{currentQuestion.title}}</div>
     <div class="lesson__question-variants" *ngIf="currentQuestion.type === 'picture'">
-      <div class="lesson__question-variant" *ngFor="let question of currentQuestion.answers">
-        <img [src]="question.image" alt="">
+      <div class="lesson__question-variant"
+           *ngFor="let answer of currentQuestion.answers"
+           [ngClass]="answer.active ? 'active' : ''"
+           (click)="!questionAnswered ? choice(answer.answerId) : null">
+        <img [src]="answer.image" alt="">
       </div>
     </div>
     <div class="lesson__question-variants" *ngIf="currentQuestion.type === 'gap'">
-      <div class="lesson__question-variant" *ngFor="let question of currentQuestion.answers">
-        {{question.name}}
+      <div class="lesson__question-variant"
+           *ngFor="let answer of currentQuestion.answers"
+           [ngClass]="answer.active ? 'active' : ''"
+          (click)="!questionAnswered ? choice(answer.answerId) : null">
+        {{answer.name}}
       </div>
     </div>
-    <div class="lesson__question-buttons">
-      <button class="button button--green" type="button" (click)="nextQuestion()">
-        Проверить
-      </button>
+    <div class="lesson__question-results" [ngClass]="correctAnswer ? 'correct' : 'incorrect'">
+      <div class="lesson__question-result" *ngIf="questionAnswered">
+        <div class="image">
+          <img [src]="correctAnswer ? 'assets/img/icon-correct.png' : 'assets/img/icon-incorrect.png'" alt="">
+        </div>
+        <div class="text">
+          {{correctAnswer ? 'Верно' : 'Неверно'}}
+        </div>
+      </div>
+      <div class="lesson__question-buttons" *ngIf="!complete">
+        <button class="button button--green" type="button" (click)="questionAnswered ? nextQuestion() : checkAnswer()">
+          {{questionAnswered ? 'Дальше' : 'Проверить'}}
+        </button>
+      </div>
+      <div class="lesson__question-report" *ngIf="questionAnswered">
+        Сообщить об ошибке
+      </div>
     </div>
   </section>
 </div>

@@ -40,6 +40,9 @@
            *ngIf="currentQuestion"
            [ngClass]="currentQuestion.type">
     <div class="lesson__question-title">{{currentQuestion.title}}</div>
+    <div class="lesson__question-gap" *ngIf="currentQuestion.type === 'gap'">
+      <span class="answer">{{questionAnswered ? this.answer.name : '__________'}}</span> {{currentQuestion.phrase}}
+    </div>
     <div class="lesson__question-variants" *ngIf="currentQuestion.type === 'picture'">
       <div class="lesson__question-variant"
            *ngFor="let answer of currentQuestion.answers"
@@ -56,8 +59,8 @@
         {{answer.name}}
       </div>
     </div>
-    <div class="lesson__question-results" [ngClass]="correctAnswer ? 'correct' : 'incorrect'">
-      <div class="lesson__question-result" *ngIf="questionAnswered">
+    <div class="lesson__question-results" [ngClass]="resultStyle">
+      <div class="lesson__question-result-side left" *ngIf="questionAnswered">
         <div class="image">
           <img [src]="correctAnswer ? 'assets/img/icon-correct.png' : 'assets/img/icon-incorrect.png'" alt="">
         </div>
@@ -70,10 +73,11 @@
           {{questionAnswered ? 'Дальше' : 'Проверить'}}
         </button>
       </div>
-      <div class="lesson__question-report" *ngIf="questionAnswered">
+      <div class="lesson__question-result-side right" *ngIf="questionAnswered">
         Сообщить об ошибке
       </div>
     </div>
   </section>
+  <h5 *ngIf="complete">Test is Complete</h5>
 </div>
 

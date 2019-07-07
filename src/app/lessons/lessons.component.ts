@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import {Question} from "./question";
+import {Question, Answer} from "./question";
 import {QuestionsService} from "./questions.service";
 
 @Component({
@@ -16,8 +16,10 @@ export class LessonsComponent implements OnInit {
   progress: number = 0;
   questionAnswered: boolean = false;
   correctAnswer: boolean;
-  answer: number;
+  answer: Answer;
+  answerName: string;
   complete: boolean = false;
+  resultStyle: string;
   warnText: string;
 
   constructor(private questionsService: QuestionsService) { }
@@ -43,7 +45,7 @@ export class LessonsComponent implements OnInit {
     this.currentQuestion.answers.forEach((item)=>{
       if(item.answerId === answerId){
         item.active = true;
-        this.answer = item.answerId;
+        this.answer = item;
       }
       else {
         item.active = false;
@@ -52,11 +54,17 @@ export class LessonsComponent implements OnInit {
   }
 
   checkAnswer(){
-    this.correctAnswer = this.currentQuestion.correctAnswerId === this.answer;
+    this.correctAnswer = this.currentQuestion.correctAnswerId === this.answer.answerId;
     this.questionAnswered = true;
     this.complete = this.questions.length - 1 === this.activeQuestion;
     if(this.complete){
       this.progress += this.progressCount();
+    }
+    if(this.correctAnswer){
+      this.resultStyle = 'correct'
+    }
+    else {
+      this.resultStyle = 'incorrect'
     }
   }
 
@@ -66,6 +74,7 @@ export class LessonsComponent implements OnInit {
     this.progress += this.progressCount();
     this.correctAnswer = null;
     this.questionAnswered = false;
+    this.resultStyle = '';
   }
 
   progressCount():number {

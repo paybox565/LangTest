@@ -36,6 +36,7 @@ export class InMemoryDataService implements InMemoryDbService {
         title: 'Заполните пропуск',
         type: 'gap',
         correctAnswerId: 2,
+        phrase: 'she a girl?',
         answers: [
           {
             answerId: 1,

@@ -3,6 +3,7 @@ export class Question {
     title: string;
     type: string;
     correctAnswerId: number;
+    phrase?: string;
     answers: Array<Answer>;
 }
 

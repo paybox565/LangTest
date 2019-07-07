@@ -33,27 +33,23 @@
       <div class="item">Выполнение урока</div>
     </nav>
     <div class="lesson__progress">
-      <div class="line"></div>
+      <div class="line" [style.width]="progress + '%'"></div>
     </div>
   </section>
-  <section class="lesson__question">
-    <div class="lesson__question-title">Apple</div>
-    <div class="lesson__question-variants">
-      <div class="lesson__question-variant">
-        <img src="assets/img/mango.png" alt="">
+  <section class="lesson__question" *ngIf="currentQuestion" [ngClass]="currentQuestion.type">
+    <div class="lesson__question-title">{{currentQuestion.title}}</div>
+    <div class="lesson__question-variants" *ngIf="currentQuestion.type === 'picture'">
+      <div class="lesson__question-variant" *ngFor="let question of currentQuestion.answers">
+        <img [src]="question.image" alt="">
       </div>
-      <div class="lesson__question-variant">
-        <img src="assets/img/apple.png" alt="">
-      </div>
-      <div class="lesson__question-variant">
-        <img src="assets/img/pineapple.png" alt="">
-      </div>
-      <div class="lesson__question-variant">
-        <img src="assets/img/banan.png" alt="">
+    </div>
+    <div class="lesson__question-variants" *ngIf="currentQuestion.type === 'gap'">
+      <div class="lesson__question-variant" *ngFor="let question of currentQuestion.answers">
+        {{question.name}}
       </div>
     </div>
     <div class="lesson__question-buttons">
-      <button class="button button--green" type="button">
+      <button class="button button--green" type="button" (click)="nextQuestion()">
         Проверить
       </button>
     </div>

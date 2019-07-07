@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-
 import {InMemoryDbService} from "angular-in-memory-web-api";
 
 @Injectable({
@@ -10,34 +9,48 @@ export class InMemoryDataService implements InMemoryDbService {
     const tests = [
       {
         id: 1,
-        name: 'Basic',
-        type: 'base',
-        baseCost: 5,
-        consumptionCost: 22
+        title: 'Apple',
+        type: 'picture',
+        correctAnswerId: 2,
+        answers: [
+          {
+            answerId: 1,
+            image: 'assets/img/mango.png'
+          },
+          {
+            answerId: 2,
+            image: 'assets/img/apple.png'
+          },
+          {
+            answerId: 3,
+            image: 'assets/img/pineapple.png'
+          },
+          {
+            answerId: 4,
+            image: 'assets/img/banan.png'
+          }
+        ]
       },
       {
         id: 2,
-        name: 'Economy',
-        type: 'package',
-        baseCost: 800,
-        consumptionCost: 30,
-        limit: 4000
+        title: 'Заполните пропуск',
+        type: 'gap',
+        correctAnswerId: 2,
+        answers: [
+          {
+            answerId: 1,
+            name: 'are'
+          },
+          {
+            answerId: 2,
+            name: 'is'
+          },
+          {
+            answerId: 3,
+            name: 'am'
+          }
+        ]
       },
-      {
-        id: 3,
-        name: 'Premium',
-        type: 'base',
-        baseCost: 10,
-        consumptionCost: 28
-      },
-      {
-        id: 4,
-        name: 'Business',
-        type: 'package',
-        baseCost: 1000,
-        consumptionCost: 34,
-        limit: 6000
-      }
     ];
     return {tests};
   }

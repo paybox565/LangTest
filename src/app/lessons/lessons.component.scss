@@ -22,6 +22,7 @@
   }
 }
 .lesson {
+  $root: &;
 
   &__info {
     display: flex;
@@ -85,14 +86,26 @@
     margin: 0 auto 30px;
 
     .line {
-      width: 10%;
       height: 12px;
       border-radius: 20px;
       background-color: #87D37C;
+      transition: width 0.35s ease;
     }
   }
   &__question {
 
+    &.gap {
+
+      .lesson__question-variants {
+        height: auto;
+      }
+      .lesson__question-variant {
+        width: 280px;
+        height: auto;
+        min-height: 42px;
+        margin: 10px 0;
+      }
+    }
   }
   &__question-title {
     font-family: SF Pro Display;

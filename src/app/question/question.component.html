@@ -1,0 +1,28 @@
+<section class="lesson__question" *ngIf="question" [ngClass]="questionType">
+  <div class="float-left" [ngSwitch]="questionType">
+    <div class="lesson__question-title">{{question.title}}</div>
+    <div *ngSwitchCase="'picture'">
+      <div class="lesson__question-variants">
+        <div class="lesson__question-variant"
+             *ngFor="let answer of question.answers"
+             [ngClass]="answer.active ? 'active' : ''"
+             (click)="choice(answer.answerId)">
+          <img [src]="answer.image" alt="">
+        </div>
+      </div>
+    </div>
+    <div *ngSwitchCase="'gap'">
+      <div class="lesson__question-gap">
+        <span class="answer">{{this.answer.name ? this.answer.name : '__________'}}</span> {{question.phrase}}
+      </div>
+      <div class="lesson__question-variants">
+        <div class="lesson__question-variant"
+             *ngFor="let answer of question.answers"
+             [ngClass]="answer.active ? 'active' : ''"
+             (click)="choice(answer.answerId)">
+          {{answer.name}}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

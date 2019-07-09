@@ -17,12 +17,15 @@ export class LessonsComponent implements OnInit {
   questionAnswered: boolean = false;
   correctAnswer: boolean;
   answer: Answer;
+  answerId: number;
   answerName: string;
   complete: boolean = false;
   resultStyle: string;
   warnText: string;
 
-  constructor(private questionsService: QuestionsService) { }
+  constructor(private questionsService: QuestionsService) {
+    this.questionsService.onClick.subscribe(id=>this.answerId = id);
+  }
 
   ngOnInit() {
     // Just for showing button disabled timer
@@ -41,20 +44,8 @@ export class LessonsComponent implements OnInit {
         );
   }
 
-  choice(answerId):void {
-    this.currentQuestion.answers.forEach((item)=>{
-      if(item.answerId === answerId){
-        item.active = true;
-        this.answer = item;
-      }
-      else {
-        item.active = false;
-      }
-    });
-  }
-
   checkAnswer(){
-    this.correctAnswer = this.currentQuestion.correctAnswerId === this.answer.answerId;
+    this.correctAnswer = this.currentQuestion.correctAnswerId === this.answerId;
     this.questionAnswered = true;
     this.complete = this.questions.length - 1 === this.activeQuestion;
     if(this.complete){
